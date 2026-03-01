@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.inventoryBody {
+  margin-top: 1rem;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.tableInventory {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.tableInventory thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 100;
+}

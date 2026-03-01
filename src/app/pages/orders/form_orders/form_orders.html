@@ -1,0 +1,134 @@
+<section class="d-flex flex-column h-100 align-items-center w-100">
+  <div class="formOrder d-flex flex-column h-100 w-100">
+    <div class="text-center tituloFormulario">
+      <h1>{{ titlePage }}</h1>
+      <hr class="m-1" />
+    </div>
+
+    <form
+      id="formOrders"
+      [formGroup]="formOrders"
+      (ngSubmit)="onSubmit()"
+      class="d-flex gap-3 flex-column px-2 flex-grow-1 overflow-auto"
+    >
+      <div class="form-item">
+        <label for="receivedAt" class="form-label"
+          >Fecha de ingreso <span class="text-danger">*</span></label
+        >
+        <input
+          type="date"
+          class="form-control"
+          id="receivedAt"
+          formControlName="receivedAt"
+          [class.is-invalid]="submitted && f['receivedAt'].invalid"
+        />
+        @if(submitted && f['receivedAt'].invalid) {
+        <div class="invalid-feedback d-block">
+          La fecha de ingreso es requerida
+        </div>
+        }
+      </div>
+
+      <div class="form-item">
+        <label for="serialNumber" class="form-label"
+          >Serie Dispositivo <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="serialNumber"
+          formControlName="serialNumber"
+          [class.is-invalid]="submitted && f['serialNumber'].invalid"
+          placeholder="Ej: SN-12345"
+        />
+        @if(submitted && f['serialNumber'].invalid) {
+        <div class="invalid-feedback d-block">
+          La serie del dispositivo es requerida
+        </div>
+        }
+      </div>
+
+      <!-- Modelo -->
+      <div class="form-item">
+        <label for="model" class="form-label"
+          >Modelo <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="model"
+          formControlName="model"
+          [class.is-invalid]="submitted && f['model'].invalid"
+          placeholder="Ej: Dell Inspiron 15"
+        />
+        @if(submitted && f['model'].invalid) {
+        <div class="invalid-feedback d-block">El modelo es requerido</div>
+        }
+      </div>
+
+      <!-- Cliente -->
+      <div class="form-item">
+        <label for="client" class="form-label">
+          Cliente <span class="text-danger">*</span>
+        </label>
+
+        <select
+          id="clientId"
+          class="form-control form-select"
+          formControlName="clientId"
+          [class.is-invalid]="submitted && f['clientId'].invalid"
+        >
+          <option value="" disabled>Selecciona un cliente</option>
+
+          @for (client of clients; track client.id) {
+          <option [value]="client.id">{{ client.name }}</option>
+          }
+        </select>
+
+        @if (submitted && f['clientId'].invalid) {
+        <div class="invalid-feedback d-block">El cliente es requerido</div>
+        }
+      </div>
+
+      <!-- Falla (Full Width) -->
+      <div class="form-item form-item-full">
+        <label for="falla" class="form-label"
+          >Falla <span class="text-danger">*</span></label
+        >
+        <textarea
+          class="form-control"
+          id="reportedIssue"
+          formControlName="reportedIssue"
+          [class.is-invalid]="submitted && f['reportedIssue'].invalid"
+          placeholder="Describe la falla del equipo"
+          rows="4"
+        ></textarea>
+        @if(submitted && f['reportedIssue'].invalid) {
+        <div class="invalid-feedback d-block">
+          La descripción de la falla es requerida
+        </div>
+        }
+      </div>
+    </form>
+    <div class="d-flex flex-column flex-md-row gap-2 w-100 py-3 px-2 mt-auto">
+      <button
+        type="submit"
+        form="formOrders"
+        class="btn btn-primary flex-grow-1"
+      >
+        @if (esEditar) {
+        <i class="bi bi-floppy"></i>
+        } @else {
+        <i class="bi bi-plus-circle"></i>
+        } {{nameButton}}
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger flex-grow-1"
+        (click)="cancelForm()"
+      >
+        <i class="bi bi-x-circle"></i> Cancelar
+      </button>
+    </div>
+  </div>
+</section>

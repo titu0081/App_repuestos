@@ -1,0 +1,46 @@
+<nav
+  class="navbar d-flex justify-content-between border-bottom bg-body sticky-top align-items-center"
+>
+  <div class="navbar-content d-flex align-items-center w-100 px-3">
+    <!-- Breadcrumb a la izquierda -->
+    <div class="flex-grow-1">
+      <app-breadcrum></app-breadcrum>
+    </div>
+
+    <!-- Dropdown del usuario -->
+    <div class="d-flex align-items-center ms-auto">
+      <div class="dropdown">
+        <a
+          class="d-flex align-items-center text-decoration-none dropdown-toggle"
+          href="#"
+          id="userDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <div
+            class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center me-2"
+            style="
+              width: 36px;
+              height: 36px;
+              font-size: 0.9rem;
+              font-weight: 600;
+            "
+          >
+            {{ user.name.charAt(0).toUpperCase() }}
+          </div>
+          <span class="d-none d-sm-inline text-dark">{{ user.name }}</span>
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="userDropdown"
+        >
+          <li><h6 class="dropdown-header">{{ user.name }}</h6></li>
+          <li>
+            <small class="dropdown-header text-muted">{{ user.email }}</small>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,9 @@
+<div class="app-shell">
+  <app-sidebar (logout)="logout()"></app-sidebar>
+  <div class="body-shell">
+    <app-navbar [user]="currentUser"></app-navbar>
+    <div class="content-wrapper">
+      <router-outlet> </router-outlet>
+    </div>
+  </div>
+</div>

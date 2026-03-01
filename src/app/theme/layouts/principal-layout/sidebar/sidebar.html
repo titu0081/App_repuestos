@@ -1,0 +1,49 @@
+<div
+  class="sidebar-container d-flex flex-column bg-body-tertiary border-end"
+  [class.expanded]="isExpanded"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  <div class="logo-area d-flex align-items-center p-3">
+    <button
+      class="btn btn-light border-0 d-flex justify-content-center align-items-center icon-box"
+      (click)="togglePin()"
+    >
+      <i class="bi bi-list fs-4"></i>
+    </button>
+    <h2
+      class="h6 m-0 ms-3 fw-bold text-nowrap text-content d-flex align-items-center"
+    >
+      <i class="bi bi-boxes me-2 text-primary fs-5"></i> Repuestos App
+    </h2>
+  </div>
+
+  <ul class="nav nav-pills flex-column mb-auto p-2 gap-2 mt-2">
+    <li class="nav-item d-flex gap-1 flex-column">
+      @for(itemMenu of menuItems; let i = $index; track $index) {
+      <a
+        [routerLink]="itemMenu.ruta"
+        routerLinkActive="active"
+        class="nav-link d-flex align-items-center rounded-3"
+      >
+        <div class="icon-box d-flex justify-content-center align-items-center">
+          <i class="{{ itemMenu.icono }} fs-5"></i>
+        </div>
+        <span class="ms-2 text-nowrap text-content">{{ itemMenu.nombre }}</span>
+      </a>
+      }
+    </li>
+  </ul>
+
+  <div class="logout-area p-2 mt-auto border-top">
+    <a
+      class="logout-link nav-link d-flex align-items-center rounded-3"
+      (click)="onLogout()"
+    >
+      <div class="icon-box d-flex justify-content-center align-items-center">
+        <i class="bi bi-box-arrow-right fs-5"></i>
+      </div>
+      <span class="ms-2 text-nowrap text-content">Cerrar sesión</span>
+    </a>
+  </div>
+</div>

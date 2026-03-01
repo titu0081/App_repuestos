@@ -1,0 +1,185 @@
+<section class="reparSection d-flex gap-3 flex-column w-100">
+  <div
+    class="headerSection border h-50 d-flex flex-column"
+    [class.section-disabled]="headerLocked()"
+  >
+    <h1>Reparaciones</h1>
+    <form
+      [formGroup]="repairForm"
+      (ngSubmit)="onSubmitHeader()"
+      class="mt-4 d-flex gap-3 flex-column px-2 flex-grow-1 overflow-auto flex-wrap"
+    >
+      <div class="form-item">
+        <label for="orderId" class="form-label"
+          >Selecciona una orden <span class="text-danger">*</span></label
+        >
+        <select
+          id="orderId"
+          class="form-control form-select"
+          formControlName="orderId"
+          [class.is-invalid]="submitted && f['orderId'].invalid"
+        >
+          <option value="" disabled>Seleccione una orden</option>
+          @for (order of orders; track order.id) {
+          <option [value]="order.id">{{ order.serial_number }}</option>
+          }
+        </select>
+        @if(submitted && f['orderId'].invalid) {
+        <div class="invalid-feedback d-block">La orden es obligatoria.</div>
+        }
+      </div>
+
+      <div class="form-item">
+        <label class="form-label">Técnico asignado</label>
+        <input
+          type="text"
+          class="form-control"
+          [value]="technicianName"
+          readonly
+          disabled
+        />
+      </div>
+
+      <div class="form-item">
+        <label for="startedAt" class="form-label"
+          >Fecha/hora inicio <span class="text-danger">*</span></label
+        >
+        <input
+          id="startedAt"
+          type="datetime-local"
+          class="form-control"
+          formControlName="startedAt"
+          [class.is-invalid]="submitted && f['startedAt'].invalid"
+        />
+        @if(submitted && f['startedAt'].invalid) {
+        <div class="invalid-feedback d-block">
+          La fecha de inicio es obligatoria.
+        </div>
+        }
+      </div>
+
+      <div class="form-item">
+        <label for="finishedAt" class="form-label"
+          >Fecha/hora finalización <span class="text-danger">*</span></label
+        >
+        <input
+          id="finishedAt"
+          type="datetime-local"
+          class="form-control"
+          formControlName="finishedAt"
+          [class.is-invalid]="submitted && f['finishedAt'].invalid"
+        />
+        @if(submitted && f['finishedAt'].invalid) {
+        <div class="invalid-feedback d-block">
+          La fecha de finalización es obligatoria.
+        </div>
+        }
+      </div>
+
+      <div class="form-item form-item-full">
+        <label for="actionsPerformed" class="form-label"
+          >Acciones realizadas <span class="text-danger">*</span></label
+        >
+        <textarea
+          id="actionsPerformed"
+          class="form-control"
+          rows="3"
+          formControlName="actionsPerformed"
+          placeholder="Describe las acciones realizadas"
+          [class.is-invalid]="submitted && f['actionsPerformed'].invalid"
+        ></textarea>
+        @if(submitted && f['actionsPerformed'].invalid) {
+        <div class="invalid-feedback d-block">Este campo es obligatorio.</div>
+        }
+      </div>
+
+      <div class="d-flex justify-content-end mt-auto pb-2">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!canSaveRepair()"
+        >
+          <i class="bi bi-floppy"></i> Guardar reparación
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="bodySection border h-50 d-flex flex-column">
+    <div
+      class="d-flex flex-row justify-content-between align-items-center flex-wrap gap-2"
+    >
+      <h5>Seleccionar Piezas/Repuestos</h5>
+      <div class="d-flex gap-2">
+        <button
+          class="btn btn-primary"
+          (click)="searchParts()"
+          [disabled]="!canSearchParts() || isLoadingParts"
+        >
+          <i class="bi bi-search"></i> Buscar
+        </button>
+        <button
+          class="btn btn-success"
+          (click)="saveSelectedParts()"
+          [disabled]="!canSaveConsumptions()"
+        >
+          <i class="bi bi-check2-circle"></i> Agregar
+        </button>
+      </div>
+    </div>
+
+    @if (showPartsTable) {
+    <div class="table-responsive mt-3 tableParts">
+      <table class="table table-striped table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Seleccionar</th>
+            <th>SKU</th>
+            <th>Repuesto</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (parts.length === 0) {
+          <tr>
+            <td colspan="5" class="text-center">
+              No hay repuestos disponibles
+            </td>
+          </tr>
+          } @else { @for (part of parts; track part.id) {
+          <tr>
+            <td>
+              <input
+                type="checkbox"
+                class="form-check-input"
+                [checked]="!!(part.id && selectedPartMap[part.id])"
+                [disabled]="!part.id"
+                (change)="onPartToggle(part, $any($event.target).checked)"
+              />
+            </td>
+            <td>{{ part.sku }}</td>
+            <td>{{ part.name }}</td>
+            <td>{{ part.description }}</td>
+            <td>
+              <input
+                type="number"
+                class="form-control"
+                min="1"
+                style="max-width: 120px"
+                [value]="getPartQuantity(part.id)"
+                [disabled]="!(part.id && selectedPartMap[part.id])"
+                (input)="onPartQuantityChange(part, $any($event.target).value)"
+              />
+            </td>
+          </tr>
+          } }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-2 small text-secondary">
+      Repuestos seleccionados: {{ selectedConsumptionsCount() }}
+    </div>
+    }
+  </div>
+</section>

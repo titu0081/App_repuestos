@@ -1,0 +1,143 @@
+/* Colores suaves inspirados en tu diseño */
+$active-bg-color: #e3f2fd; // Un azul pastel muy suave
+$active-text-color: #1976d2; // Azul opaco para el texto e icono
+$logout-color: #dc3545; // Rojo vivo para el logout
+
+.sidebar-container {
+  width: 5rem; /* Ancho colapsado */
+  height: 100vh; /* Alto completo */
+  transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow-x: hidden;
+
+  /* ESTADO EXPANDIDO: Aquí los cuadrados se vuelven rectángulos */
+  &.expanded {
+    width: auto;
+
+    .nav-link,
+    .logout-link {
+      width: calc(100% - 16px); /* Toma casi todo el ancho disponible */
+      margin: 0 8px; /* Pequeño margen a los lados para que no toque el borde */
+      border-radius: 10px; /* Rectángulo con bordes suaves */
+    }
+
+    .text-content {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+  }
+}
+
+/* ESTADO COLAPSADO: Cuadrados perfectos centrados */
+.nav-link,
+.logout-link {
+  width: 48px; /* Obligamos a que sea un cuadrado */
+  height: 48px;
+  margin: 0 auto; /* Lo centra en el medio del sidebar de 80px */
+  padding: 0;
+  border-radius: 12px; /* Bien redondito y elegante */
+  color: #495057;
+  transition: all 0.2s ease-in-out;
+  overflow: hidden; /* Clave: oculta el texto cuando es un cuadrado */
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f8f9fa;
+  }
+
+  &.active {
+    background-color: $active-bg-color;
+    color: $active-text-color;
+    font-weight: 500;
+
+    i {
+      color: $active-text-color; /* Asegura que el icono tome el azul opaco */
+    }
+  }
+}
+
+/* Caja del icono para que mida exactamente lo mismo que el cuadrado (48x48) */
+.icon-box {
+  min-width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #6c757d;
+}
+
+/* cuando el sidebar está contraído, CADA icono normal no lleva
+   cuadro; solamente el enlace activo lo presenta. El logout activo será
+   rojo para enfatizardanger. */
+.sidebar-container:not(.expanded) {
+  .nav-link,
+  .logout-link {
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0.5rem !important;
+    background-color: transparent !important;
+  }
+
+  /* sólo el enlace activo obtiene el cuadro pálido */
+  .nav-link.active .icon-box {
+    background-color: rgba(13, 110, 253, 0.1) !important;
+    border-radius: 0.5rem;
+  }
+
+  /* logout activo en color danger evidente */
+  .logout-link.active .icon-box {
+    background-color: rgba(220, 53, 69, 0.2) !important;
+    border-radius: 0.5rem;
+  }
+}
+
+/* ÁREA DE LOGOUT: Rojo y estilizado */
+.logout-link {
+  color: $logout-color;
+
+  i {
+    color: $logout-color; /* Icono rojo siempre visible */
+  }
+
+  &.active i {
+    color: white; /* icono blanco dentro del cuadro danger */
+  }
+}
+
+/* El texto que empuja el menú */
+.text-content {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transform: translateX(-10px);
+  white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
+}
+
+/* ÁREA DE LOGOUT: Rojo y estilizado */
+.logout-link {
+  color: $logout-color;
+
+  i {
+    color: $logout-color; /* Icono rojo siempre visible */
+  }
+
+  &:hover {
+    background-color: #fff1f2; /* Fondo rojito claro muy pro */
+    color: #b02a37;
+
+    i {
+      color: #b02a37;
+    }
+  }
+}
+
+/* Ajustes de los separadores */
+.logo-area {
+  height: 5rem;
+}
+
+.logout-area {
+  border-top: 1px solid #dee2e6;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}

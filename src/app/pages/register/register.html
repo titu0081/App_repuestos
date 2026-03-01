@@ -1,0 +1,131 @@
+<div
+  class="register-page d-flex align-items-center justify-content-center p-3 p-md-4"
+>
+  <div class="card shadow-sm border-0 register-card">
+    <div class="card-body p-4 p-md-4 d-flex flex-column register-form-scroll">
+      <div class="mb-3">
+        <h1 class="h4 fw-bold mb-1">Crear cuenta</h1>
+        <p class="text-secondary mb-0">Completa tus datos para registrarte.</p>
+      </div>
+
+      <form
+        class="pe-1"
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+        novalidate
+      >
+        <div class="mb-3">
+          <label for="fullName" class="form-label">Nombre completo</label>
+          <input
+            id="fullName"
+            class="form-control"
+            type="text"
+            formControlName="fullName"
+          />
+          @if (fullName?.touched && fullName?.invalid) {
+          <div class="text-danger small mt-1">Ingresa un nombre válido.</div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo</label>
+          <input
+            id="email"
+            class="form-control"
+            type="email"
+            formControlName="email"
+          />
+          @if (email?.touched && email?.invalid) {
+          <div class="text-danger small mt-1">Ingresa un correo válido.</div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="phone" class="form-label">Teléfono</label>
+          <input
+            id="phone"
+            class="form-control"
+            type="text"
+            formControlName="phone"
+          />
+          @if (phone?.touched && phone?.invalid) {
+          <div class="text-danger small mt-1">Ingresa un teléfono válido.</div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="documentId" class="form-label"
+            >Documento de identidad</label
+          >
+          <input
+            id="documentId"
+            class="form-control"
+            type="text"
+            formControlName="documentId"
+          />
+          @if (documentId?.touched && documentId?.invalid) {
+          <div class="text-danger small mt-1">Ingresa un documento válido.</div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="city" class="form-label">Ciudad</label>
+          <input
+            id="city"
+            class="form-control"
+            type="text"
+            formControlName="city"
+          />
+          @if (city?.touched && city?.invalid) {
+          <div class="text-danger small mt-1">La ciudad es obligatoria.</div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">Dirección</label>
+          <input
+            id="address"
+            class="form-control"
+            type="text"
+            formControlName="address"
+          />
+          @if (address?.touched && address?.invalid) {
+          <div class="text-danger small mt-1">
+            Ingresa una dirección válida.
+          </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            id="password"
+            class="form-control"
+            type="password"
+            formControlName="password"
+          />
+          @if (password?.touched && password?.invalid) {
+          <div class="text-danger small mt-1">Mínimo 4 caracteres.</div>
+          }
+        </div>
+
+        @if (registerError) {
+        <div class="alert alert-danger py-2" role="alert">
+          {{ registerError }}
+        </div>
+        }
+
+        <button type="submit" class="btn btn-primary w-100">
+          Registrar usuario
+        </button>
+      </form>
+
+      <div class="text-center mt-3 small">
+        ¿Ya tienes cuenta?
+        <a [routerLink]="['/auth/login']" class="text-decoration-none"
+          >Inicia sesión</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

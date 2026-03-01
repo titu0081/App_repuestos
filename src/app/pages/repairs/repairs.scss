@@ -1,0 +1,28 @@
+.headerSection,
+.bodySection {
+  background-color: #f8f9fa;
+  background-color: #f8f9fa;
+  border-radius: 15px;
+  width: 100%;
+  padding: 1.5rem;
+}
+
+:host {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.tableParts {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.tableParts thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  z-index: 100;
+}

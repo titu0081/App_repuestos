@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.register-page {
+  height: 100%;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100vh - 2rem);
+}
+
+.register-form-scroll {
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}

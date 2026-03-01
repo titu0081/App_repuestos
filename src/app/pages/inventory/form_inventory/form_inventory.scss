@@ -1,0 +1,19 @@
+.formInventory {
+  background-color: #f8f9fa;
+  border-radius: 15px;
+}
+
+.tituloFormulario {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #f8f9fa;
+  padding: 0.2rem 0;
+}
+
+:host {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}

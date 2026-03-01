@@ -1,0 +1,92 @@
+<section class="d-flex flex-column h-100 align-items-center w-100">
+  <div class="formInventory d-flex flex-column h-100 w-100">
+    <div class="text-center tituloFormulario">
+      <h1>{{ titlePage }}</h1>
+      <hr class="m-1" />
+    </div>
+
+    <form
+      id="formInventoryMain"
+      [formGroup]="formInventory"
+      (ngSubmit)="onSubmit()"
+      class="d-flex gap-3 flex-column px-2 flex-grow-1 overflow-auto"
+    >
+      <div class="form-item">
+        <label for="skuRepuesto" class="form-label"
+          >SKU repuesto/pieza <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="skuRepuesto"
+          formControlName="skuRepuesto"
+          [class.is-invalid]="submitted && f['skuRepuesto'].invalid"
+          placeholder="Ej: P12345"
+        />
+        @if(submitted && f['skuRepuesto'].invalid) {
+        <div class="invalid-feedback d-block">
+          El SKU del repuesto/pieza es requerido
+        </div>
+        }
+      </div>
+
+      <div class="form-item">
+        <label for="nombreRepuesto" class="form-label"
+          >Nombre repuesto/pieza <span class="text-danger">*</span></label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="nombreRepuesto"
+          formControlName="nombreRepuesto"
+          [class.is-invalid]="submitted && f['nombreRepuesto'].invalid"
+          placeholder="Ej: Pantalla iPhone 13"
+        />
+        @if(submitted && f['nombreRepuesto'].invalid) {
+        <div class="invalid-feedback d-block">
+          El nombre del repuesto/pieza es requerido
+        </div>
+        }
+      </div>
+
+      <div class="form-item form-item-full">
+        <label for="descripcion" class="form-label"
+          >Descripción <span class="text-danger">*</span></label
+        >
+        <textarea
+          class="form-control"
+          id="descripcion"
+          formControlName="descripcion"
+          [class.is-invalid]="submitted && f['descripcion'].invalid"
+          placeholder="Describe el repuesto/pieza"
+          rows="4"
+        ></textarea>
+        @if(submitted && f['descripcion'].invalid) {
+        <div class="invalid-feedback d-block">La descripción es requerida</div>
+        }
+      </div>
+    </form>
+
+    <div class="d-flex flex-column flex-md-row gap-2 w-100 py-3 px-2 mt-auto">
+      <button
+        type="submit"
+        form="formInventoryMain"
+        class="btn btn-primary flex-grow-1"
+      >
+        @if (esEditar) {
+        <i class="bi bi-floppy"></i>
+        } @else {
+        <i class="bi bi-plus-circle"></i>
+        }
+        {{nameButton}}
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger flex-grow-1"
+        (click)="cancelForm()"
+      >
+        <i class="bi bi-x-circle"></i> Cancelar
+      </button>
+    </div>
+  </div>
+</section>
