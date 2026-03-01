@@ -41,11 +41,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/orders/orders').then((m) => m.Orders),
       },
-      {
-        path: 'package',
-        loadComponent: () =>
-          import('./pages/package/package').then((m) => m.Package),
-      },
+
       {
         path: 'inventory',
         loadComponent: () =>
@@ -56,11 +52,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/repairs/repairs').then((m) => m.Repairs),
       },
-      {
-        path: 'shipments',
-        loadComponent: () =>
-          import('./pages/shipments/shipments').then((m) => m.Shipments),
-      },
+
       {
         path: 'orders/form-orders',
         loadComponent: () =>

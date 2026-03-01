@@ -175,7 +175,7 @@ export class Repairs implements OnInit {
 
   private resetHeaderForm(): void {
     this.repairForm.reset({
-      orderId: null,
+      orderId: '',
       startedAt: this.getNowDateTimeLocal(),
       finishedAt: this.getNowDateTimeLocal(),
       actionsPerformed: '',
@@ -374,9 +374,9 @@ export class Repairs implements OnInit {
           customClass: {
             confirmButton: 'btn btn-primary',
           },
+        }).then(() => {
+          this.resetRepairFlow();
         });
-        this.selectedPartMap = {};
-        this.clearConsumptions();
       },
       error: (error: unknown) => {
         Swal.fire({
@@ -432,5 +432,17 @@ export class Repairs implements OnInit {
 
   private syncSelectedCount(): void {
     this.selectedConsumptionsCount.set(this.consumptionsArray.length);
+  }
+
+  private resetRepairFlow(): void {
+    this.currentRepairId = null;
+    this.headerLocked.set(false);
+    this.canSearchParts.set(false);
+    this.showPartsTable = false;
+    this.parts = [];
+    this.selectedPartMap = {};
+    this.clearConsumptions();
+    this.repairForm.enable();
+    this.resetHeaderForm();
   }
 }
